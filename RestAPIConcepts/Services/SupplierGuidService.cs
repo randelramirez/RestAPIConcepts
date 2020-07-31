@@ -97,15 +97,20 @@ namespace RestAPIConcepts.Services
 
         public async Task UpdateAsync(SupplierGuid supplier)
         {
+            // approach #1
+            // This apporoach, updates all properties
             //this.context.Update(supplier);
             //await this.context.SaveChangesAsync();
 
-            // same query generated as below
+            // approach #2
+            // Updates changed properties only
             //var existing = await this.context.SupplierGuids.FindAsync(supplier.Id);
             //existing.Address = supplier.Address;
             //existing.Name = supplier.Name;
             //await this.context.SaveChangesAsync();
 
+            // approach #3
+            // Updates changed properties only (similar to approach #2)
             var exists = await this.context.SupplierGuids.FindAsync(supplier.Id);
             this.context.Entry(exists).CurrentValues.SetValues(supplier);
             await this.context.SaveChangesAsync();
