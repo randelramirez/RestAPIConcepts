@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace RestAPIConcepts.Services
 {
-    public class SupplierGuidService
+    public class SuppliersGuidService
     {
         private readonly DataContext context;
 
-        public SupplierGuidService(DataContext context)
+        public SuppliersGuidService(DataContext context)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
@@ -21,7 +21,7 @@ namespace RestAPIConcepts.Services
         {
             if (includeProducts)
             {
-                return await this.context.SupplierGuids.Include(sg => sg.Products)
+                return await this.context.SupplierGuids.Include(sg => sg.Products).AsNoTracking()
                 .Select(sg => new SupplierGuidViewModel()
                 {
                     Id = sg.Id,
@@ -41,7 +41,7 @@ namespace RestAPIConcepts.Services
             }
             else
             {
-                return await this.context.SupplierGuids
+                return await this.context.SupplierGuids.AsNoTracking()
                 .Select(sg => new SupplierGuidViewModel()
                 {
                     Id = sg.Id,
@@ -57,7 +57,7 @@ namespace RestAPIConcepts.Services
         {
             if (includeProducts)
             {
-                var supplier = await this.context.SupplierGuids.Include(sg => sg.Products).FirstAsync(sg => sg.Id == supplierId);
+                var supplier = await this.context.SupplierGuids.Include(sg => sg.Products).AsNoTracking().FirstAsync(sg => sg.Id == supplierId);
 
                 return new SupplierGuidViewModel()
                 {
@@ -126,7 +126,6 @@ namespace RestAPIConcepts.Services
         {
             var supplier = await this.context.SupplierGuids.FindAsync(supplierId);
             return supplier != null;
-
         }
     }
 }

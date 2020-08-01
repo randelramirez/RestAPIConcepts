@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RestAPIConcepts.ViewModels
 {
-    public class CreateProductsGuidViewModel
+    public class CreateProductGuidViewModel
     {
         public string Name { get; set; }
 
@@ -13,6 +13,7 @@ namespace RestAPIConcepts.ViewModels
 
         public string Description { get; set; }
 
-        public Guid SupplierId { get; set; }
+        // SupplierId is taken from the route
+        //public Guid SupplierId { get; set; }
     }
 }
