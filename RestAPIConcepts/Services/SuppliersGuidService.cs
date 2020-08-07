@@ -12,10 +12,8 @@ namespace RestAPIConcepts.Services
     {
         private readonly DataContext context;
 
-        public SuppliersGuidService(DataContext context)
-        {
+        public SuppliersGuidService(DataContext context) =>
             this.context = context ?? throw new ArgumentNullException(nameof(context));
-        }
 
         public async Task<IEnumerable<SupplierGuidViewModel>> GetAllAsync(bool includeProducts = true)
         {
@@ -47,7 +45,7 @@ namespace RestAPIConcepts.Services
                     Id = sg.Id,
                     Name = sg.Name,
                     Address = sg.Address
- 
+
                 })
                 .ToListAsync();
             }
@@ -64,14 +62,14 @@ namespace RestAPIConcepts.Services
                     Id = supplier.Id,
                     Name = supplier.Name,
                     Address = supplier.Address,
-                    Products = supplier.Products.Select(pg => 
-                        new ProductGuidViewModel() 
-                        { 
-                            Id = pg.Id, 
-                            Name = pg.Name, 
-                            Description = pg.Description, 
-                            Price = pg.Price, 
-                            SupplierId = pg.SupplierId 
+                    Products = supplier.Products.Select(pg =>
+                        new ProductGuidViewModel()
+                        {
+                            Id = pg.Id,
+                            Name = pg.Name,
+                            Description = pg.Description,
+                            Price = pg.Price,
+                            SupplierId = pg.SupplierId
                         }).ToList()
                 };
             }
@@ -84,7 +82,7 @@ namespace RestAPIConcepts.Services
                     Id = supplier.Id,
                     Name = supplier.Name,
                     Address = supplier.Address
-                    
+
                 };
             }
         }
