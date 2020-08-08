@@ -17,11 +17,13 @@ namespace RestAPIConcepts.Controllers
         private readonly SuppliersGuidService supplierService;
         private readonly ProductsGuidService productService;
 
-        public ProductsGuidController(SuppliersGuidService supplierService, ProductsGuidService productService)
-        {
-            this.supplierService = supplierService ?? throw new ArgumentNullException(nameof(supplierService));
-            this.productService = productService ?? throw new ArgumentNullException(nameof(productService));
-        }
+        public ProductsGuidController(SuppliersGuidService supplierService, ProductsGuidService productService) =>
+            (this.supplierService, this.productService) = (supplierService ?? throw new ArgumentNullException(nameof(supplierService)), 
+                productService ?? throw new ArgumentNullException(nameof(productService)));
+        //{
+        //    this.supplierService = supplierService ?? throw new ArgumentNullException(nameof(supplierService));
+        //    this.productService = productService ?? throw new ArgumentNullException(nameof(productService));
+        //}
 
         [HttpGet()]
         public async Task<ActionResult<IEnumerable<ProductGuidViewModel>>> GetSupplierProducts(Guid supplierId)
