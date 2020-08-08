@@ -17,6 +17,9 @@ namespace RestAPIConcepts.Controllers
         private readonly SuppliersGuidService supplierService;
         private readonly ProductsGuidService productService;
 
+        /*
+            If we have validation on constructos, it's better to write it in a constrcutor with a body {} 
+         */
         public ProductsGuidController(SuppliersGuidService supplierService, ProductsGuidService productService) =>
             (this.supplierService, this.productService) = (supplierService ?? throw new ArgumentNullException(nameof(supplierService)), 
                 productService ?? throw new ArgumentNullException(nameof(productService)));
