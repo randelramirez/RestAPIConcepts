@@ -97,8 +97,47 @@ namespace RestAPIConcepts.Services
                     Id = supplier.Id,
                     Name = supplier.Name,
                     Address = supplier.Address
-
                 };
+            }
+        }
+
+        public async Task<IEnumerable<SupplierGuidViewModel>> GetAsync(IEnumerable<Guid> supplierIds, bool includeProducts = true)
+        {
+            if (includeProducts)
+            {
+                var suppliers = await this.context.SupplierGuids.Where(s => supplierIds.Contains(s.Id))
+                    .Include(sg => sg.Products)
+                    .AsNoTracking()
+                    .Select(sg => new SupplierGuidViewModel()
+                    {
+                        Id = sg.Id,
+                        Name = sg.Name,
+                        Address = sg.Address,
+                        Products = sg.Products.Select(pg =>
+                            new ProductGuidViewModel()
+                            {
+                                Id = pg.Id,
+                                Name = pg.Name,
+                                Description = pg.Description,
+                                Price = pg.Price,
+                                SupplierId = sg.Id
+                            }).ToList()
+                    }).ToListAsync();
+                return suppliers;
+            }
+            else
+            {
+                var suppliers = await this.context.SupplierGuids
+                    .Where(s => supplierIds.Contains(s.Id))
+                    .AsNoTracking()
+                    .Select(sg => new SupplierGuidViewModel()
+                    {
+                        Id = sg.Id,
+                        Name = sg.Name,
+                        Address = sg.Address
+                    })
+                    .ToListAsync();
+                    return suppliers;
             }
         }
 
