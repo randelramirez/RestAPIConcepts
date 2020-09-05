@@ -15,40 +15,55 @@ namespace RestAPIConcepts.Services
         public SuppliersGuidService(DataContext context) =>
             this.context = context ?? throw new ArgumentNullException(nameof(context));
 
-        public async Task<IEnumerable<SupplierGuidViewModel>> GetAllAsync(bool includeProducts = true)
+        public async Task<IEnumerable<SupplierGuidViewModel>> GetAllAsync(string nameFilter = null, bool includeProducts = true)
         {
+            IEnumerable<SupplierGuidViewModel> supplers;
+
             if (includeProducts)
             {
-                return await this.context.SupplierGuids.Include(sg => sg.Products).AsNoTracking()
-                .Select(sg => new SupplierGuidViewModel()
+                var query = this.context.SupplierGuids.AsQueryable();
+
+                if (!string.IsNullOrEmpty(nameFilter))
                 {
-                    Id = sg.Id,
-                    Name = sg.Name,
-                    Address = sg.Address,
-                    Products = sg.Products.Select(pg =>
-                        new ProductGuidViewModel()
-                        {
-                            Id = pg.Id,
-                            Name = pg.Name,
-                            Description = pg.Description,
-                            Price = pg.Price,
-                            SupplierId = sg.Id
-                        }).ToList()
-                })
-                .ToListAsync();
+                    query = query.Where(s => s.Name.Contains(nameFilter));
+                }
+
+                supplers = await query.Include(sg => sg.Products)
+                    .AsNoTracking()
+                    .Select(sg => new SupplierGuidViewModel()
+                    {
+                        Id = sg.Id,
+                        Name = sg.Name,
+                        Address = sg.Address,
+                        Products = sg.Products.Select(pg =>
+                            new ProductGuidViewModel()
+                            {
+                                Id = pg.Id,
+                                Name = pg.Name,
+                                Description = pg.Description,
+                                Price = pg.Price,
+                                SupplierId = sg.Id
+                            }).ToList()
+                    }).ToListAsync();
             }
             else
             {
-                return await this.context.SupplierGuids.AsNoTracking()
-                .Select(sg => new SupplierGuidViewModel()
+                var query = this.context.SupplierGuids.AsQueryable();
+                if (!string.IsNullOrEmpty(nameFilter))
                 {
-                    Id = sg.Id,
-                    Name = sg.Name,
-                    Address = sg.Address
+                    query = query.Where(s => s.Name.Contains(nameFilter));
+                }
 
-                })
-                .ToListAsync();
+                supplers = await query.AsNoTracking()
+                    .Select(sg => new SupplierGuidViewModel()
+                    {
+                        Id = sg.Id,
+                        Name = sg.Name,
+                        Address = sg.Address
+                    })
+                    .ToListAsync();
             }
+            return supplers;
         }
 
         public async Task<SupplierGuidViewModel> GetAsync(Guid supplierId, bool includeProducts = true)

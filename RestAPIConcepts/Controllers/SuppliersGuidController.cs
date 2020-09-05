@@ -23,9 +23,9 @@ namespace RestAPIConcepts.Controllers
         }
 
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<SupplierGuidViewModel>>> GetSuppliers([FromQuery] bool includeProducts = true)
+        public async Task<ActionResult<IEnumerable<SupplierGuidViewModel>>> GetSuppliers(/*Lets use name as the query key instead of nameFilter*/[FromQuery(Name ="name")] string nameFilter,[FromQuery] bool includeProducts = true)
         {
-            return Ok(await this.service.GetAllAsync(includeProducts));
+            return Ok(await this.service.GetAllAsync(nameFilter, includeProducts));
         }
 
         //[HttpGet("{productId}", Name = "[controller]." + nameof(SuppliersGuidController.GetSupplierById))]
