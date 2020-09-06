@@ -83,8 +83,9 @@ namespace RestAPIConcepts.Services
             await this.context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(ProductGuid product)
+        public async Task DeleteAsync(Guid productId)
         {
+            var product = await this.context.ProductGuids.FindAsync(productId);
             this.context.Remove(product);
             await this.context.SaveChangesAsync();
         }

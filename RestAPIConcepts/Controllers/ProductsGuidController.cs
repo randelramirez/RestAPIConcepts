@@ -21,7 +21,7 @@ namespace RestAPIConcepts.Controllers
             If we have validation on constructos, it's better to write it in a constrcutor with a body {} 
          */
         public ProductsGuidController(SuppliersGuidService supplierService, ProductsGuidService productService) =>
-            (this.supplierService, this.productService) = (supplierService ?? throw new ArgumentNullException(nameof(supplierService)), 
+            (this.supplierService, this.productService) = (supplierService ?? throw new ArgumentNullException(nameof(supplierService)),
                 productService ?? throw new ArgumentNullException(nameof(productService)));
         //{
         //    this.supplierService = supplierService ?? throw new ArgumentNullException(nameof(supplierService));
@@ -86,7 +86,7 @@ namespace RestAPIConcepts.Controllers
         }
 
         [HttpPut("{productId}")]
-        public async Task<ActionResult<ProductGuidViewModel>> UpdateOrInsertSupplierProduct(Guid supplierId, Guid productId, 
+        public async Task<ActionResult<ProductGuidViewModel>> UpdateOrInsertSupplierProduct(Guid supplierId, Guid productId,
             UpdateProductGuidViewModel model)
         {
             if (!await this.supplierService.IsExistingAsync(supplierId))
@@ -134,7 +134,7 @@ namespace RestAPIConcepts.Controllers
         }
 
         [HttpPatch("{productId}")]
-        public async Task<ActionResult<ProductGuidViewModel>> PatchOrInsertSupplierProduct(Guid supplierId, Guid productId, 
+        public async Task<ActionResult<ProductGuidViewModel>> PatchOrInsertSupplierProduct(Guid supplierId, Guid productId,
             JsonPatchDocument<UpdateProductGuidViewModel> patchDocument)
         {
             // If we do not want to Upsert functionality then return NotFound
@@ -214,6 +214,22 @@ namespace RestAPIConcepts.Controllers
                     return NoContent();
                 }
             }
+        }
+
+        [HttpDelete("{productId}")] 
+        public async Task<IActionResult> DeleteProduct(Guid supplierId, Guid productId)
+        {
+            if (!await this.supplierService.IsExistingAsync(supplierId))
+            {
+                return NotFound();
+            }
+            if(!await this.productService.IsExistingAsync(productId))
+            {
+                return NotFound();
+            }
+
+            await this.productService.DeleteAsync(productId);
+            return NoContent();
         }
     }
 }
