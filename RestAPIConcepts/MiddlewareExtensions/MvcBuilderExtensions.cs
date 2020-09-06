@@ -48,6 +48,7 @@ namespace RestAPIConcepts.MiddlewareExtensions
                         };
                     }
 
+                    //ENSURE THAT WE STILL HANDLE 400 BAD REQUEST for BAD REQUEST THAT ROOTS FROM INVALID INPUT
                     // if one of the keys wasn't correctly found / couldn't be parsed
                     // we're dealing with null/unparsable input
                     problemDetails.Status = StatusCodes.Status400BadRequest;
