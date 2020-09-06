@@ -32,6 +32,11 @@ namespace RestAPIConcepts.Controllers
         [HttpGet("{supplierId}", Name = nameof(SuppliersGuidController.GetSupplierById))]
         public async Task<ActionResult<SupplierGuidViewModel>> GetSupplierById([FromRoute] Guid supplierId, bool includeProducts = true)
         {
+            if(!await this.service.IsExistingAsync(supplierId))
+            {
+                return NotFound();
+            }
+
             return Ok(await this.service.GetAsync(supplierId, includeProducts));
         }
 
@@ -162,6 +167,30 @@ namespace RestAPIConcepts.Controllers
 
                 return NoContent();
             }
+
+        }
+
+        [HttpDelete("{supplierId}", Name = nameof(SuppliersGuidController.DeleteSupplier))]
+        public async Task<IActionResult> DeleteSupplier(Guid supplierId)
+        {
+
+
+            //check if supplier exists
+            var supplier = await this.service.GetAsync(supplierId, false);
+            if(supplier == null)
+            {
+                return NotFound();
+            }
+
+            await this.service.DeleteAsync(supplierId);
+            return NoContent();
+        }
+
+        [HttpOptions]
+        public IActionResult GetSupplierOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT,PATCH,DELETE");
+            return Ok();
         }
     }
 }

@@ -168,9 +168,10 @@ namespace RestAPIConcepts.Services
             await this.context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(SupplierGuid supplier)
+        public async Task DeleteAsync(Guid supplierId)
         {
-            this.context.Remove(supplier);
+            var supplier = await this.context.SupplierGuids.FindAsync(supplierId);
+            this.context.SupplierGuids.Remove(supplier);
             await this.context.SaveChangesAsync();
         }
 
