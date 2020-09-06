@@ -36,10 +36,12 @@ namespace RestAPIConcepts.Controllers
         }
 
         [HttpGet("({supplierIds})", Name = nameof(SuppliersGuidController.GetSupplierByIds))]
-        public async Task<ActionResult<SupplierGuidViewModel>> GetSupplierByIds([FromRoute][ModelBinder(BinderType = typeof(ModelBinders.ArrayModelBinder))] IEnumerable<Guid> supplierIds, [FromQuery] bool includeProducts = true)
+        public async Task<ActionResult<SupplierGuidViewModel>> GetSupplierByIds(
+            [FromRoute][ModelBinder(BinderType = typeof(ModelBinders.ArrayModelBinder))] IEnumerable<Guid> supplierIds, 
+            [FromQuery] bool includeProducts = true)
         {
             
-            return Ok(await this.service.GetAsync(supplierIds));
+            return Ok(await this.service.GetAsync(supplierIds,includeProducts));
         }
 
         [HttpPost()]
