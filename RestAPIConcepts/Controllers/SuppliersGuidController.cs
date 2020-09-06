@@ -173,11 +173,8 @@ namespace RestAPIConcepts.Controllers
         [HttpDelete("{supplierId}", Name = nameof(SuppliersGuidController.DeleteSupplier))]
         public async Task<IActionResult> DeleteSupplier(Guid supplierId)
         {
-
-
             //check if supplier exists
-            var supplier = await this.service.GetAsync(supplierId, false);
-            if(supplier == null)
+            if(!await this.service.IsExistingAsync(supplierId))
             {
                 return NotFound();
             }
