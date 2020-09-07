@@ -1,0 +1,177 @@
+{
+	"info": {
+		"_postman_id": "565ecc4d-f9aa-4f62-8ea3-a591ed9c86aa",
+		"name": "RestApiConcepts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Patch ProductGuid",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json-patch+json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"op\": \"replace\",\r\n        \"path\": \"/name\",\r\n        \"value\": \"LATEST MACBOOK PRO FOR DEVELOPERS\"\r\n    },\r\n    \r\n    {\r\n        \"op\": \"replace\",\r\n        \"path\": \"/description\",\r\n        \"value\": \"Super Developer Machine\"\r\n    }\r\n        \r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44365/api/suppliersguid/d98399a2-5d9a-4b9f-0660-08d8354e29b9/productsguid/6c2c8d7a-716d-4a2d-9397-29677fc8fdbd",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44365",
+					"path": [
+						"api",
+						"suppliersguid",
+						"d98399a2-5d9a-4b9f-0660-08d8354e29b9",
+						"productsguid",
+						"6c2c8d7a-716d-4a2d-9397-29677fc8fdbd"
+					],
+					"query": [
+						{
+							"key": "Content-Type",
+							"value": "application",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Patch"
+			},
+			"response": []
+		},
+		{
+			"name": "Patch SupplierGuid",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json-patch+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"op\": \"replace\",\r\n        \"path\": \"/name\",\r\n        \"value\": \"Google Replica Created 2\"\r\n    },\r\n    \r\n    {\r\n        \"op\": \"replace\",\r\n        \"path\": \"/address\",\r\n        \"value\": \"Mountainview for replica 2\"\r\n    }\r\n        \r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44365/api/supplierguid/bf60a966-6044-4426-b9e7-163e3a2e275b",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44365",
+					"path": [
+						"api",
+						"supplierguid",
+						"bf60a966-6044-4426-b9e7-163e3a2e275b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put ProductGuid",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Product for Upsert 926\",\r\n    \"description\": \"Updated Description\",\r\n    \"price\": 9999\r\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44365/api/suppliersguid/d98399a2-5d9a-4b9f-0660-08d8354e29b9/productsguid/5e200ed5-e8a9-49ed-878f-5fd7ec7ec471",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44365",
+					"path": [
+						"api",
+						"suppliersguid",
+						"d98399a2-5d9a-4b9f-0660-08d8354e29b9",
+						"productsguid",
+						"5e200ed5-e8a9-49ed-878f-5fd7ec7ec471"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post ProductGuid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImE2NTlmYjFkLTgxYmMtNDMxYi1hZDg1LTY2YjI0ZGI2NGE5NCIsIm5iZiI6MTU5NTY5NDg4MywiZXhwIjoxNTk2Mjk5NjgzLCJpYXQiOjE1OTU2OTQ4ODN9.yjcqB9mMpvema7wFUPGvhWNQ02W9fmbt0OQa71-SWSk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"test product beta\",\r\n    \"price\": 450,\r\n    \"description\": \"new test product\" \r\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44365/api/suppliersguid/d98399a2-5d9a-4b9f-0660-08d8354e29b9/productsguid",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44365",
+					"path": [
+						"api",
+						"suppliersguid",
+						"d98399a2-5d9a-4b9f-0660-08d8354e29b9",
+						"productsguid"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

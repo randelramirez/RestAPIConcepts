@@ -33,6 +33,7 @@ namespace RestAPIConcepts
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers()
+                // We need to NewtonsoftJson for Patch processing
                 .AddNewtonsoftJson(options =>
                 {
                     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
