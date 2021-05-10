@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace RestAPIConcepts.Models
+﻿namespace RestAPIConcepts.Models
 {
     public class ProductInt
     {
