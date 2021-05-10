@@ -37,10 +37,10 @@ namespace RestAPIConcepts.ViewModels
         {
             if (Name == Address)
             {
-                // We don't always need to return the class name, 
-                //but since this a cross-property validation we used the actual class name instead
-                yield return new ValidationResult("The provided description should be different from the title", 
-                    new[] { "CourseForCreationDto" });
+                // we don't always need to return the class name,
+                // but since this a class property validation, we used the actual class name instead
+                yield return new ValidationResult("Thr provided description should be different from the title",
+                    new[] {"CourseForCreationDto"});
             }
         }
     }
