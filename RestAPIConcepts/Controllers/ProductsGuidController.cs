@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -75,7 +74,7 @@ namespace RestAPIConcepts.Controllers
 
             await this.productService.AddAsync(newProduct);
 
-            return CreatedAtRoute(nameof(ProductsGuidController.GetSupplierProductsById), new { supplierId = supplierId, productId = newProduct.Id },
+            return CreatedAtRoute(nameof(ProductsGuidController.GetSupplierProductsById), new {supplierId, productId = newProduct.Id },
                 new ProductGuidViewModel()
                 {
                     Id = newProduct.Id,
@@ -107,7 +106,7 @@ namespace RestAPIConcepts.Controllers
 
                     await this.productService.AddAsync(newProduct);
 
-                    return CreatedAtRoute(nameof(ProductsGuidController.GetSupplierProductsById), new { supplierId = supplierId, productId = newProduct.Id },
+                    return CreatedAtRoute(nameof(ProductsGuidController.GetSupplierProductsById), new {supplierId, productId = newProduct.Id },
                         new ProductGuidViewModel()
                         {
                             Id = newProduct.Id,
